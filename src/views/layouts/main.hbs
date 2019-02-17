@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{!-- CDN de Boots-Watch con el tema SUPERHERO --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/superhero/bootstrap.min.css">
+    {{!-- CDN de Font-Awesome     --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     {{!-- CUSTOM CSS --}}
     <link rel="stylesheet" href="/css/main.css">
     <title>Contactos App</title>
@@ -15,6 +17,7 @@
     <p>Header</p>
     {{!-- Esta etiqueta es necesaria para definir los elementos que todas las rutas compartiran, esta define el body --}}
     <main class="container">
+        {{> messages }}
          {{{ body }}}
     </main>
 

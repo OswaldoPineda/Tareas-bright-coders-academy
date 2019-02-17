@@ -1,0 +1,29 @@
+<div class="row">
+    {{#each contacts}}
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title d-flex justify-content-between align-items-center">
+                        {{nombre}} <a href="/contact/edit/{{_id}}" class="fas fa-edit"></a>
+                    </h4>
+                    <p>
+                        {{numero}}
+                    </p>
+                    {{!-- Utilizamos un input oculto para que el formulario envie una peticion DELETE al servidor, asi aunque veamos que el metodo es POST lo envia como un metodo DELETE gracias a "method override" --}}
+                    <form action="/contact/delete/{{_id}}?_method=DELETE" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btn btn-danger btn-block btn-sm" type="submit">Eliminar contacto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{else}}
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <p class="lead">No hay registros aun :(</p>
+                    <a href="/contact/add" class="btn btn-success btn-block ">Crear uno</a>
+                </div>
+            </div>
+        
+    {{/each}}
+</div>
