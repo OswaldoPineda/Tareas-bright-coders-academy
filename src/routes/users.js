@@ -57,4 +57,10 @@ routes.post('/users/signup', async(req,res)=>{
     }
 });
 
+// Ruta para terminar la sesion de user
+routes.get('/users/logout', (req, res) => {
+    req.logout();
+    res.redirect('/users/signin');
+  });  
+
 module.exports = routes;
