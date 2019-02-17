@@ -5,9 +5,13 @@ const exhbs = require('express-handlebars');
 const override = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
 
 // Requerimos el archivo de configuracion de la base de datos
 require('./database');
+
+// Requerimos las configuraciones de passport para uso de sesiones
+require('./config/passport');
 
 // Configuracion del puerto 
 app.set('port', process.env.PORT || 3000);
@@ -39,7 +43,12 @@ app.use(session({
     secret: 'myapp',
     resave: true,
     saveUninitialized: true
-}));
+  }));
+
+// Para poder utilizar la sesion local, estos deben ir despues del middleware   
+// session
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Para alertas de confirmacion al realizar una accion
 app.use(flash());
@@ -48,6 +57,8 @@ app.use(flash());
 app.use((req,res,next)=>{
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
     next();
 });
 

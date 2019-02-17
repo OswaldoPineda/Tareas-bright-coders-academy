@@ -1,0 +1,22 @@
+.imagen-signup {
+    background-image: url("../img/signup.jpg");
+    background-size: cover;
+    border-radius: 20px 0px 0px 20px;
+}
+
+.logo {
+    width: 50%;
+    /* border-radius: 100%; */
+}
+
+.btn {
+    border-radius: 20px;
+}
+
+.card {
+    border-radius: 8px;
+}
+
+.borde, .alert {
+    border-radius: 5px;
+}
