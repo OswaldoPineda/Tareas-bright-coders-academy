@@ -14,7 +14,7 @@ routes.get('/contact/add',isAuthenticated, (req,res)=>{
 
 // Ruta que obtiene contactos desde la DB
 routes.get('/contact',isAuthenticated, async (req,res)=>{
-    const contacts = await Contact.find().sort({date:'desc'});
+    const contacts = await Contact.find({user: req.user.id}).sort({date:'desc'});
     res.render('contact/all-contacts.hbs', {contacts});
 });
 
@@ -36,6 +36,7 @@ routes.post('/contact/new-contact',isAuthenticated,async(req,res)=>{
         })
     } else {
         const newContact = new Contact({nombre, numero});
+        newContact.user = req.user.id;
         await newContact.save().then((user) => {
             req.flash('success_msg', 'Contato agregado satisfactoriamente...');
             res.redirect('/contact');
