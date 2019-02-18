@@ -37,18 +37,7 @@ routes.post('/contact/new-contact',isAuthenticated,async(req,res)=>{
     } else {
         const newContact = new Contact({nombre, numero});
         newContact.user = req.user.id;
-        await newContact.save().then((user) => {
-            req.flash('success_msg', 'Contato agregado satisfactoriamente...');
-            res.redirect('/contact');
-          })
-          .catch(err => {
-            errors.push({text:'El campo "Numero" debe tener solo numeros enteros...'})
-            res.render('contact/new-contact.hbs', {
-                errors,
-                nombre,
-                numero
-            })
-          });
+        await newContact.save();
     }
 });
 

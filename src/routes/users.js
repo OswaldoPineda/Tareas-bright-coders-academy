@@ -25,7 +25,7 @@ routes.post('/users/signin', passport.authenticate('local', {
 
 
 // Meotodo POST para recibir los datos de la vista signup
-routes.post('/users/signup', async(req,res)=>{
+routes.post('/users/signup', async (req,res)=>{
     const errors = [];
     const {nombre,email,password,confirm_password} = req.body;
     if(nombre.length<=0||email.length<=0||password.length<=0||confirm_password<=0){
