@@ -7,8 +7,7 @@ const UserSchema = new Schema({
     nombre: {type:String,required:true},
     email: {type:String, required:true},
     password: {type:String, required:true},
-    date:{type:Date,default:Date.now},
-    user: {type: String}
+    date:{type:Date,default:Date.now}
 });
 
 // Metodo desde el Schema para cifrar la contrasenia

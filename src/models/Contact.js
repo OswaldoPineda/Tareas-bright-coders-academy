@@ -4,7 +4,8 @@ const {Schema} = mongoose;
 const ContactSchema = new Schema({
     nombre: {type: String, required: true},
     numero: {type: String, required: true},
-    date: {type: Date, default: Date.now}
+    date: {type: Date, default: Date.now},
+    user: {type: String}
 });
 
 module.exports = mongoose.model('Contact', ContactSchema);

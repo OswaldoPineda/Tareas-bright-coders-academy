@@ -38,6 +38,7 @@ routes.post('/contact/new-contact',isAuthenticated,async(req,res)=>{
         const newContact = new Contact({nombre, numero});
         newContact.user = req.user.id;
         await newContact.save();
+        res.redirect('/contact');
     }
 });
 
