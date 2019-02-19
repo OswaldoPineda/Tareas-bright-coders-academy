@@ -5,61 +5,102 @@ const routes = express.Router();
 const Contact = require('../models/Contact');
 
 // Validar la sesion del usuario con el helper auth, le agregaremos esto a las funciones que queramos asegurar que este autenticado para poder acceder a ellas
-const {isAuthenticated} = require('../helpers/auth');
+const {
+    isAuthenticated
+} = require('../helpers/auth');
 
 // Ruta para agregar nuevo contacto
-routes.get('/contact/add',isAuthenticated, (req,res)=>{
+routes.get('/contact/add', isAuthenticated, (req, res) => {
     res.render('contact/new-contact.hbs');
 });
 
 // Ruta que obtiene contactos desde la DB
-routes.get('/contact',isAuthenticated, async (req,res)=>{
-    const contacts = await Contact.find({user: req.user.id}).sort({date:'desc'});
-    res.render('contact/all-contacts.hbs', {contacts});
+routes.get('/contact', isAuthenticated, async (req, res) => {
+    const contacts = await Contact.find({
+        user: req.user.id
+    }).sort({
+        date: 'desc'
+    });
+    res.render('contact/all-contacts.hbs', {
+        contacts
+    });
 });
 
 // Ruta que recibe una peticion post del formulario
-routes.post('/contact/new-contact',isAuthenticated,async(req,res)=>{
-    const {nombre, numero} = req.body;
+routes.post('/contact/new-contact', isAuthenticated, async (req, res) => {
+    const {
+        nombre,
+        numero
+    } = req.body;
     const errors = [];
-    if(!nombre) {
-        errors.push({text:'Inserte un nombre...'})
+    if (!nombre) {
+        errors.push({
+            text: 'Inserte un nombre...'
+        })
     }
-    if(!numero) {
-        errors.push({text:'Inserte un numero valido...'})
+    if (!numero) {
+        errors.push({
+            text: 'Inserte un numero valido...'
+        })
     }
-    if(errors.length>0) {
+    if (errors.length > 0) {
         res.render('contact/new-contact.hbs', {
             errors,
             nombre,
             numero
         })
     } else {
-        const newContact = new Contact({nombre, numero});
+        const newContact = new Contact({
+            nombre,
+            numero
+        });
         newContact.user = req.user.id;
-        await newContact.save();
-        res.redirect('/contact');
+        // await newContact.save();
+        // res.redirect('/contact');
+        await newContact.save().then((user) => {
+                req.flash('success_msg', 'Contato agregado satisfactoriamente...');
+                res.redirect('/contact');
+            })
+            .catch(err => {
+                errors.push({
+                    text: 'El numero solo debe tener numeros enteros...'
+                })
+                res.render('contact/new-contact.hbs', {
+                    errors,
+                    nombre,
+                    numero
+                })
+            });
     }
 });
 
 // Ruta para editar el contacto seleccionado
-routes.get('/contact/edit/:id',isAuthenticated, async(req,res)=>{
+routes.get('/contact/edit/:id', isAuthenticated, async (req, res) => {
     const contact = await Contact.findById(req.params.id)
-    res.render('contact/edit-contact.hbs',{contact});
+    res.render('contact/edit-contact.hbs', {
+        contact
+    });
 });
 
 // Metodo put para editar el contacto desde la DB
-routes.put('/contact/edit-contact/:id',isAuthenticated, async(req,res) =>{
-    const {nombre,numero} = req.body;
-    await Contact.findByIdAndUpdate(req.params.id, {nombre,numero});
-    req.flash('sucess_msg','Nota editada satisfactoriamente...')
-    res.redirect('/contact');
+routes.put('/contact/edit-contact/:id', isAuthenticated, async (req, res) => {
+    const errors=[];
+    const {
+        nombre,
+        numero
+    } = req.body;
+    await Contact.findByIdAndUpdate(req.params.id, {
+            nombre,
+            numero
+        });
+        req.flash('success_msg', 'Nota editada satisfactoriamente...');
+        res.redirect('/contact'); 
 });
 
 // Metodo DELETE para eliminar un contacto de la BD
-routes.delete('/contact/delete/:id',isAuthenticated,async (req,res)=>{
+routes.delete('/contact/delete/:id', isAuthenticated, async (req, res) => {
     await Contact.findByIdAndDelete(req.params.id);
-    req.flash('sucess_msg','Nota eliminada satisfactoriamente...')
+    req.flash('success_msg', 'Nota eliminada satisfactoriamente...')
     res.redirect('/contact');
 });
 

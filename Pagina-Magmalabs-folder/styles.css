@@ -1,0 +1,160 @@
+/* general */
+body,
+html {
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-image: url(./img/home_hero@2x.jpeg);
+    background-size: cover;
+
+}
+
+/* navegacion */
+.logo {
+    height: 70px;
+    width: 280px;
+}
+
+.navegacion-container {}
+
+.navbar {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lista-nav {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+}
+
+li {
+    list-style: none;
+    margin-right: 30px;
+    padding-top: 53px;
+}
+
+li:hover {
+    border-top: 7px solid red;
+    transition: border-top .5s ease-out;
+}
+
+li.bg-red {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.bg-red a:hover {
+    color: white;
+}
+
+.bg-red:hover {
+    background-color: red;
+    border-radius: 0px 0px 8px 8px;
+    transition: background-color .5s ease-out;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    /* border-top: 2px solid red; */
+}
+
+ul {
+    /* margin-top: 50px; */
+    padding-top: 0;
+    margin-top: 0;
+}
+
+a.rojo {
+    margin-right: 20px;
+    color: red;
+}
+
+.logo-container {
+    margin-left: 35px;
+    margin-top: 30px;
+}
+
+
+
+/* main */
+
+.contenedor-main {
+    text-align: center;
+    margin-top: 10%;
+}
+
+h1 {
+    color: #f84848;
+    font-size: 40px;
+}
+
+.title {
+    width: 40%;
+    margin: auto;
+}
+
+.description {
+    color: white;
+    font-size: 20px;
+    width: 55%;
+    line-height: 30px;
+    margin: auto;
+    font-weight: 300;
+    margin-bottom: 60px;
+}
+
+.description a {
+    text-decoration: underline;
+}
+
+.description a:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.lenguajes {
+    margin: auto;
+    width: 50%;
+}
+
+.lenguajes p {
+    margin-right: 30px;
+    display: inline-block;
+    font-size: 20px;
+    color: white;
+    font-weight: 300;
+}
+
+.lenguajes p:before {
+    color: #f84848;
+    content: "• ";
+}
+
+
+/* responsive */
+
+/* 1024 */
+
+@media screen and (max-width: 1024px) {
+
+    .navegacion-container {
+        display: none;
+    }
+
+    .logo-container,
+    .contenedor-main {
+        margin: 50px auto;
+        text-align: center;
+    }
+
+    .title {
+        width: 100%;
+    }
+
+}
